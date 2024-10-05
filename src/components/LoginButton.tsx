@@ -7,10 +7,6 @@ export default function LoginButton() {
 
   console.log(user);
 
-  if (ready && authenticated) {
-    return <Card>{user?.wallet?.address}</Card>;
-  }
-
   return (
     <Button disabled={disableLogin} onClick={login}>
       Log in

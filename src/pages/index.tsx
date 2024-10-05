@@ -10,27 +10,6 @@ import React from "react";
 import { useAsyncMemo } from "use-async-memo";
 
 export default function Home() {
-  const router = useRouter();
-
-  const getBackgroundColor = (typeOfGrant: string) => {
-    switch (typeOfGrant) {
-      case "project":
-        return { backgroundColor: "#00b300" };
-      case "bounty":
-        return { backgroundColor: "#ffcc00" }; // Choose your color for bounty
-      case "social":
-        return { backgroundColor: "#ff0000" };
-      case "translation":
-        return { backgroundColor: "#9900cc" }; // Choose your color for translation
-      case "documentation":
-        return { backgroundColor: "#0000ff" };
-      case "hackathon":
-        return { backgroundColor: "#ff00ff" };
-      default:
-        return { backgroundColor: "#e0e0e0" }; // Default color if none of the cases match
-    }
-  };
-
   return (
     <>
       <Head>

@@ -1,4 +1,4 @@
-import AttestationABI from "../../abi/AttestationABI.json";
+import AttestationABI from "../abi/AttestationABI.json";
 import { Nav } from "@/components/Nav";
 import {
   Button,
@@ -12,7 +12,6 @@ import {
   TextArea,
   Title,
 } from "@/components/atoms";
-import { useSharedState } from "@/utils/store";
 import { usePrivy } from "@privy-io/react-auth";
 import TransgateConnect from "@zkpass/transgate-js-sdk";
 import { ethers } from "ethers";
@@ -118,46 +117,39 @@ const CreateProof = () => {
     setIsLoading(false);
   };
   return (
-    <Layout>
-      <Nav />
+    <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+      <Title>Submit your receipt</Title>
+      <Description>Submit your receipt to claim your proof.</Description>
 
-      <Container
-        as="main"
-        style={{ display: "flex", flexDirection: "column", gap: "1rem" }}
-      >
-        <Title>Submit your receipt</Title>
-        <Description>Submit your receipt to claim your proof.</Description>
+      <Form onSubmit={handleSubmit}>
+        <FormGroup>
+          <Label htmlFor="appId">AppId:</Label>
+          <Input
+            type="text"
+            id="appId"
+            name="appId"
+            placeholder="Enter appId"
+            value={formData.appId}
+            onChange={handleChange}
+          />
+        </FormGroup>
+        <FormGroup>
+          <Label htmlFor="schemaId">SchemaId:</Label>
+          <TextArea
+            id="schemaId"
+            name="schemaId"
+            placeholder="Enter schemaId"
+            value={formData.schemaId}
+            onChange={handleChange}
+            rows={5}
+          />
+        </FormGroup>
 
-        <Form onSubmit={handleSubmit}>
-          <FormGroup>
-            <Label htmlFor="appId">AppId:</Label>
-            <Input
-              type="text"
-              id="appId"
-              name="appId"
-              placeholder="Enter appId"
-              value={formData.appId}
-              onChange={handleChange}
-            />
-          </FormGroup>
-          <FormGroup>
-            <Label htmlFor="schemaId">SchemaId:</Label>
-            <TextArea
-              id="schemaId"
-              name="schemaId"
-              placeholder="Enter schemaId"
-              value={formData.schemaId}
-              onChange={handleChange}
-              rows={5}
-            />
-          </FormGroup>
-
-          <Button type="submit" disabled={isLoading}>
-            Submit
-          </Button>
-        </Form>
-      </Container>
-    </Layout>
+        <Button type="submit" disabled={isLoading}>
+          Submit
+        </Button>
+      </Form>
+    </div>
   );
 };
 
