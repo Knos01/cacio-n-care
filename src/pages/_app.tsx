@@ -1,8 +1,12 @@
+import PlausibleProvider from 'next-plausible'
+import type { AppProps } from 'next/app'
+import { createContext, useReducer } from 'react'
+import '@/styles/style.scss'
+import '@/styles/dashboard.scss'
+import { SharedStateProvider } from '@/utils/store'
 import PrivyProviders from "@/components/providers";
-import "@/styles/style.scss";
-import { SharedStateProvider } from "@/utils/store";
-import PlausibleProvider from "next-plausible";
-import type { AppProps } from "next/app";
+
+
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
