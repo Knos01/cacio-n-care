@@ -7,6 +7,7 @@ import { WagmiConfig } from 'wagmi'
 
 import { chains, wagmiConfig } from '@/providers'
 import '@/styles/style.scss'
+import '@/styles/dashboard.scss'
 import { SharedStateProvider } from '@/utils/store'
 
 export default function App({ Component, pageProps }: AppProps) {
