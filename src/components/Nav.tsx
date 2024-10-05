@@ -1,4 +1,5 @@
 import styles from "../styles/styles.module.css";
+import LoginButton from "./LoginButton";
 import { useSharedState } from "@/utils/store";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import Link from "next/link";
@@ -144,6 +145,7 @@ export function Nav() {
             );
           }}
         </ConnectButton.Custom>
+        <LoginButton />
       </div>
     </Wrapper>
   );

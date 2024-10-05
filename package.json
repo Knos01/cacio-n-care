@@ -12,6 +12,7 @@
     "prettier:fix": "prettier --write src/**/*"
   },
   "dependencies": {
+    "@privy-io/react-auth": "^1.88.4",
     "@rainbow-me/rainbowkit": "^1.0.4",
     "@types/uuid": "^9.0.7",
     "next": "13.4.1",
