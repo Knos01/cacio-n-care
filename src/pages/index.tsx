@@ -1,26 +1,16 @@
+import { Dashboard } from "@/components/Dashboard";
 import { Footer } from "@/components/Footer";
 import { Nav } from "@/components/Nav";
-import {
-  CreateButton,
-  CustomContainer,
-  HackathonBox,
-  HackathonsContainer,
-  Layout,
-  TinyLabelCard,
-} from "@/components/atoms";
-import { useDB } from "@/hooks/useDB";
+import { CreateButton, CustomContainer, Layout } from "@/components/atoms";
 import { useIsMounted } from "@/hooks/useIsMounted";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import React from "react";
 import { useAsyncMemo } from "use-async-memo";
 
 export default function Home() {
-  const isMounted = useIsMounted(); // Prevent Next.js hydration errors
   const router = useRouter();
-  const { fetchCompetitions } = useDB();
-
-  const competitions = useAsyncMemo(async () => await fetchCompetitions(), []);
 
   const getBackgroundColor = (typeOfGrant: string) => {
     switch (typeOfGrant) {
@@ -54,7 +44,6 @@ export default function Home() {
 
       <Layout>
         <Nav />
-        🧀
         <CustomContainer as="main">
           <h1>Cacio 'N Care</h1>
           <p>
@@ -71,46 +60,12 @@ export default function Home() {
           <Link href="/competition/create" passHref>
             <CreateButton>Create Grant</CreateButton>
           </Link>
+          <Link href="/dashboard" passHref>
+            test
+          </Link>
 
           <p></p>
           <br />
-
-          {competitions && competitions.length > 0 && (
-            <>
-              <HackathonsContainer>
-                {!!competitions &&
-                  competitions.map((competition, index) => (
-                    <HackathonBox
-                      key={index}
-                      onClick={() =>
-                        router.push(`competition/${competition._id}`)
-                      }
-                    >
-                      <img
-                        src={competition.imageUrl}
-                        alt={`Hackathon ${index + 1}`}
-                      />
-                      <h3>{competition.title}</h3>
-                      <TinyLabelCard
-                        style={getBackgroundColor(
-                          competition.typeOfGrant || "project"
-                        )}
-                      >
-                        {competition.typeOfGrant || "project"}
-                      </TinyLabelCard>
-                      <p>
-                        Start Date:{" "}
-                        {new Date(competition.startDate).toDateString()}
-                      </p>
-                      <p>
-                        End Date: {new Date(competition.endDate).toDateString()}
-                      </p>
-                      <p>Prize: {competition.prize} GHO</p>
-                    </HackathonBox>
-                  ))}
-              </HackathonsContainer>
-            </>
-          )}
         </CustomContainer>
         <Footer />
       </Layout>
