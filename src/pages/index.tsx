@@ -13,6 +13,7 @@ import { useIsMounted } from "@/hooks/useIsMounted";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import React from "react";
 import { useAsyncMemo } from "use-async-memo";
 
 export default function Home() {
