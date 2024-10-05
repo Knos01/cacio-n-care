@@ -76,7 +76,7 @@ export const Input = styled.input`
 `;
 
 export const Button = styled.button`
-  background-color: #007bff;
+  background-color: #1d3b3b;
   color: white;
   padding: 10px 15px;
   border: none;
@@ -85,11 +85,12 @@ export const Button = styled.button`
   font-size: 16px;
 
   &:hover {
-    background-color: #0056b3;
+    background-color: #1d3b00;
+    opacity: 0.8;
   }
 `;
 export const Card = styled.button`
-  background-color: #007bff;
+  background-color: #1d3b3b;
   color: white;
   padding: 10px 15px;
   border: none;
