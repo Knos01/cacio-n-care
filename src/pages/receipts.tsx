@@ -4,6 +4,7 @@ import styled from "styled-components";
 
 interface MedicalData {
   id: string;
+  receiptNumber: string;
   name: string;
   surname: string;
   taxCode: string;
@@ -140,6 +141,7 @@ export default function Component() {
             <TableHeader>
               <tr>
                 <TableHeaderCell>ID</TableHeaderCell>
+                <TableHeaderCell>Receipt Number</TableHeaderCell>
                 <TableHeaderCell>Name</TableHeaderCell>
                 <TableHeaderCell>Surname</TableHeaderCell>
                 <TableHeaderCell>Tax Code</TableHeaderCell>
@@ -150,6 +152,7 @@ export default function Component() {
               {currentReceipts.map((record) => (
                 <TableRow key={record.id}>
                   <TableCell>{record.id}</TableCell>
+                  <TableCell>{record.receiptNumber}</TableCell>
                   <TableCell>{record.name}</TableCell>
                   <TableCell>{record.surname}</TableCell>
                   <TableCell>{record.taxCode}</TableCell>
