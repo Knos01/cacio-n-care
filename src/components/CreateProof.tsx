@@ -19,7 +19,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 const ZKPASS_APP_ID = process.env.NEXT_PUBLIC_ZKPASS_APP_ID!;
-const ZKPASS_SCHEMA_ID = process.env.ZKPASS_SCHEMA_ID!;
+const ZKPASS_SCHEMA_ID = process.env.NEXT_PUBLIC_ZKPASS_SCHEMA_ID!;
 
 // Page component
 const CreateProof = () => {
@@ -71,7 +71,7 @@ const CreateProof = () => {
       //get your ethereum address
       const account = await signer.getAddress();
 
-      const res: any = await connector.launch(formData.schemaId, account);
+      const res: any = await connector.launch(formData.schemaId);
       console.log(res);
 
       //Sepolia contract address
