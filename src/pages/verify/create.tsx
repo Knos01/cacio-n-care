@@ -1,3 +1,4 @@
+import AttestationABI from "../../abi/AttestationABI.json";
 import { Nav } from "@/components/Nav";
 import {
   Button,
@@ -11,14 +12,11 @@ import {
   TextArea,
   Title,
 } from "@/components/atoms";
-import { http } from "@/utils/fetch";
 import { useSharedState } from "@/utils/store";
 import TransgateConnect from "@zkpass/transgate-js-sdk";
 import { ethers } from "ethers";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { useAsyncMemo } from "use-async-memo";
-import { v4 as uuidv4 } from "uuid";
 import { useAccount } from "wagmi";
 
 // Page component
@@ -58,6 +56,7 @@ const CreateSubmissionPage = () => {
     setIsLoading(true);
 
     try {
+      console.log("formData", formData);
       const connector = new TransgateConnect(formData.appId);
       const isAvailable = await connector.isTransgateAvailable();
       if (!isAvailable) {
