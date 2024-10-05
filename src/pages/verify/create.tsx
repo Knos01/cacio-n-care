@@ -26,7 +26,7 @@ const CreateSubmissionPage = () => {
 
   const [formData, setFormData] = useState({
     appId: "1c096bbc-3357-4d00-9c3d-64ff4c17937a",
-    schemaId: "341157d3786a48bb9647209a6ec22f53",
+    schemaId: "fe7fc2478d7440ec89c20e1e54b401bf",
   });
 
   const [isLoading, setIsLoading] = useState(false);
