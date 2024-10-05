@@ -1,5 +1,7 @@
 import { Dashboard } from "@/components/Dashboard";
 import LoginButton from "@/components/LoginButton";
+import { Card } from "@/components/atoms";
+import { usePrivy } from "@privy-io/react-auth";
 import Link from "next/link";
 import styled from "styled-components";
 
@@ -40,6 +42,7 @@ const Body = styled.div`
 `;
 
 const DashboardView = () => {
+  const { user, ready, authenticated } = usePrivy();
   return (
     <Container>
       <Sidebar>
@@ -54,7 +57,11 @@ const DashboardView = () => {
 
       <MainContent>
         <Navbar>
-          <LoginButton />
+          {ready && authenticated ? (
+            <Card>{user?.wallet?.address}</Card>
+          ) : (
+            <LoginButton />
+          )}
         </Navbar>
 
         <Body>

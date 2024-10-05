@@ -90,7 +90,7 @@ export const Button = styled.button`
   }
 `;
 export const Card = styled.button`
-  background-color: #007bff;
+  background-color: #1d3b3b;
   color: white;
   padding: 10px 15px;
   border: none;

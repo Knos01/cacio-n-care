@@ -18,11 +18,14 @@ import { ethers } from "ethers";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
+const ZKPASS_APP_ID = process.env.NEXT_PUBLIC_ZKPASS_APP_ID!;
+const ZKPASS_SCHEMA_ID = process.env.ZKPASS_SCHEMA_ID!;
+
 // Page component
 const CreateProof = () => {
   const [formData, setFormData] = useState({
-    appId: "1c096bbc-3357-4d00-9c3d-64ff4c17937a",
-    schemaId: "fe7fc2478d7440ec89c20e1e54b401bf",
+    appId: ZKPASS_APP_ID,
+    schemaId: ZKPASS_SCHEMA_ID,
   });
 
   const [isLoading, setIsLoading] = useState(false);
