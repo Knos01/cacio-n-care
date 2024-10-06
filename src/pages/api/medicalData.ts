@@ -12,7 +12,7 @@ interface MedicalData {
 
 const medicalData: MedicalData[] = [
   {
-    id: "N-12039",
+    id: "12345",
     receiptNumber: "R-12039",
     name: "Christian",
     surname: "Kobril",
@@ -21,7 +21,7 @@ const medicalData: MedicalData[] = [
     issuedAt: "2024-09-15",
   },
   {
-    id: "N-10932",
+    id: "23322",
     receiptNumber: "R-12023",
     name: "Christian",
     surname: "Kobril",
@@ -30,7 +30,7 @@ const medicalData: MedicalData[] = [
     issuedAt: "2024-02-15",
   },
   {
-    id: "N-19032",
+    id: "43443",
     receiptNumber: "R-12009",
     name: "Christian",
     surname: "Kobril",
@@ -39,7 +39,7 @@ const medicalData: MedicalData[] = [
     issuedAt: "2023-03-05",
   },
   {
-    id: "N-12232",
+    id: "12232",
     receiptNumber: "R-12002",
     name: "Christian",
     surname: "Kobril",
@@ -48,7 +48,7 @@ const medicalData: MedicalData[] = [
     issuedAt: "2022-03-05",
   },
   {
-    id: "N-22932",
+    id: "22932",
     receiptNumber: "R-10022",
     name: "Christian",
     surname: "Kobril",

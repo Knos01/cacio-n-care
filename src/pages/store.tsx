@@ -1,6 +1,8 @@
 import { Dashboard } from "@/components/Dashboard";
 import LoginButton from "@/components/LoginButton";
 import LogoutButton from "@/components/LogoutButton";
+import PrescriptionStored from "@/components/PrescriptionStored";
+import StoreManager from "@/components/StoreManager";
 import { Card, Row } from "@/components/atoms";
 import { usePrivy } from "@privy-io/react-auth";
 import Link from "next/link";
@@ -9,7 +11,7 @@ import styled from "styled-components";
 
 const Container = styled.div`
   display: flex;
-  height: 100vh;
+  height: full;
   width: 100vw;
 `;
 
@@ -46,7 +48,7 @@ const Body = styled.div`
   background-color: #f4f4f4;
 `;
 
-const DashboardView = () => {
+const StoreView = () => {
   const { user, ready, authenticated } = usePrivy();
 
   const [hover, setHover] = useState({ dashboard: false, store: true });
@@ -61,6 +63,7 @@ const DashboardView = () => {
       "color 0.2s ease, background-color 0.2s ease, text-decoration 0.2s ease", // Smooth transitions
     cursor: "pointer", // Pointer cursor on hover
   });
+
   return (
     <Container>
       <Sidebar>
@@ -105,11 +108,11 @@ const DashboardView = () => {
         </Navbar>
 
         <Body>
-          <Dashboard />
+          <StoreManager />
         </Body>
       </MainContent>
     </Container>
   );
 };
 
-export default DashboardView;
+export default StoreView;

@@ -1,5 +1,8 @@
-import { FormEvent, useState } from "react";
+import PrescriptionStored from "./PrescriptionStored";
+import { Title } from "./atoms";
+import { FormEvent, useEffect, useMemo, useState } from "react";
 import { SecretNetworkClient, Wallet } from "secretjs";
+import styled from "styled-components";
 
 const wallet = new Wallet(
   "desk pigeon hammer sleep only mistake stool december offer patrol once vacant"
@@ -16,20 +19,26 @@ const secretjs = new SecretNetworkClient({
 });
 
 export default function StoreManager() {
-
-    const [farmaco, setFarmaco] = useState<string>(""); // farmaco rimane come stringa
-    const [dose, setDose] = useState<number | "">(""); // dose come number o stringa vuota
-    const [ricetta, setRicetta] = useState<number | "">(""); // ricetta come number o stringa vuota
-    const [quantity, setQuantity] = useState<number | "">("");
-    const [indice, setIndice] = useState<number | "">("");
-    let [index, setIndex] = useState<number>(0);
+  const [farmaco, setFarmaco] = useState<string>(""); // farmaco rimane come stringa
+  const [dose, setDose] = useState<number | "">(""); // dose come number o stringa vuota
+  const [ricetta, setRicetta] = useState<number | "">(""); // ricetta come number o stringa vuota
+  const [quantity, setQuantity] = useState<number | "">("");
+  const [indice, setIndice] = useState<number | "">("");
+  let [index, setIndex] = useState<number>(0);
+  const [prescriptions, setPrescriptions] = useState<{
+    dosage: string;
+    num_of_prescriptions: string;
+    quantity: string;
+    type_of_medication: string;
+  } | null>(null);
+  const [showPrescriptions, setShowPrescriptions] = useState<boolean>(false);
 
   const update_index = () => {
-  setIndex((prev) => {
-    const newIndex = typeof prev === "number" ? prev + 1 : 1;
-    index = newIndex;
-    return newIndex;
-  });
+    setIndex((prev) => {
+      const newIndex = typeof prev === "number" ? prev + 1 : 1;
+      index = newIndex;
+      return newIndex;
+    });
   };
   const store_prescription = async () => {
     let i = 0;
@@ -59,66 +68,157 @@ export default function StoreManager() {
   };
 
   let query_prescription = async () => {
-    const count = await secretjs.query.compute.queryContract({
+    const prescriptionsData = (await secretjs.query.compute.queryContract({
       contract_address: contractAddress,
       query: {
         get_prescription: { index: indice },
       },
       code_hash: contractCodeHash,
-    });
+    })) as {
+      prescription: {
+        dosage: string;
+        num_of_prescriptions: string;
+        quantity: string;
+        type_of_medication: string;
+      };
+    };
 
-    console.log(count);
+    console.log(prescriptionsData);
+    setPrescriptions({ ...prescriptionsData?.prescription });
   };
 
-  const onFormSubmit = (e: FormEvent) => {
+  useEffect(() => {
+    console.log(prescriptions);
+    if (prescriptions) {
+      setShowPrescriptions(true);
+    }
+  }, [prescriptions]);
+
+  console.log(showPrescriptions);
+
+  const onStoreSubmit = (e: FormEvent) => {
     e.preventDefault();
+    store_prescription();
   };
+
+  const onQuerySubmit = (e: FormEvent) => {
+    e.preventDefault();
+    query_prescription();
+  };
+
+  const FormWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background-color: #f9fafb;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 50%;
+    margin: 0 5 0 5;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  `;
+
+  const Form = styled.form`
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  `;
+
+  const InputGroup = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    input {
+      padding: 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      font-size: 16px;
+      transition: border-color 0.3s ease;
+
+      &:focus {
+        outline: none;
+        border-color: #0366d6;
+        box-shadow: 0 0 5px rgba(3, 102, 214, 0.5);
+      }
+    }
+  `;
+
+  const Button = styled.button`
+    padding: 12px 16px;
+    background-color: #0366d6;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: #0353b3;
+    }
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 5px rgba(3, 102, 214, 0.5);
+    }
+  `;
 
   return (
-    <div className="AddFriend">
-      <form action="submit" onSubmit={onFormSubmit} className="">
-        <div className="AddFriend__inputs">
-          <input
-            type="text"
-            value={farmaco}
-            onChange={(e) => setFarmaco(e.target.value)}
-            placeholder="Farmaco"
-            required
-          />
-          <input
-            type="text"
-            placeholder="Dose"
-            value={dose}
-            onChange={(e) => setDose(Number((e.target.value)))}
-            required
-          />
-          <input
-            type="text"
-            value={ricetta}
-            placeholder="Prescription"
-            onChange={(e) => setRicetta(Number((e.target.value)))}
-            required
-          />
-          <input
-            type="text"
-            placeholder="Quantity"
-            value={quantity}
-            onChange={(e) => setQuantity(Number((e.target.value)))}
-            required
-          />
-        </div>
-      <button onClick={store_prescription}>Store Prescription</button>
-      </form>
-      <form action="submit" onSubmit={onFormSubmit} className="">
-      <input
-            type="text"
-            placeholder="Index"
-            value={indice}
-            onChange={(e) => setIndice(Number((e.target.value)))}
-            required
-          />
-      <button onClick={query_prescription}>Query Prescription</button>
-      </form>
+    <div>
+      <FormWrapper>
+        <Title>Store your prescriptions</Title>
+        <Form action="submit" onSubmit={onStoreSubmit}>
+          <InputGroup>
+            <input
+              type="text"
+              value={farmaco}
+              onChange={(e) => setFarmaco(e.target.value)}
+              placeholder="Medicine"
+              required
+            />
+            <input
+              type="text"
+              placeholder="Dose"
+              value={dose}
+              onChange={(e) => setDose(Number(e.target.value))}
+              required
+            />
+            <input
+              type="text"
+              value={ricetta}
+              placeholder="Prescription"
+              onChange={(e) => setRicetta(Number(e.target.value))}
+              required
+            />
+            <input
+              type="text"
+              placeholder="Quantity"
+              value={quantity}
+              onChange={(e) => setQuantity(Number(e.target.value))}
+              required
+            />
+          </InputGroup>
+          <Button onClick={store_prescription}>Store Prescription</Button>
+        </Form>
+
+        <Form action="submit" onSubmit={onQuerySubmit}>
+          <InputGroup>
+            <input
+              type="text"
+              placeholder="Index"
+              value={indice}
+              onChange={(e) => setIndice(Number(e.target.value))}
+              required
+            />
+          </InputGroup>
+          <Button onClick={query_prescription}>Query Prescription</Button>
+        </Form>
+      </FormWrapper>
+      {showPrescriptions && prescriptions && (
+        <PrescriptionStored userPrescriptions={prescriptions} />
+      )}
     </div>
   );
 }
