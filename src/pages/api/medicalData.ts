@@ -12,8 +12,8 @@ interface MedicalData {
 
 const medicalData: MedicalData[] = [
   {
-    id: "12345",
-    receiptNumber: "R-12039",
+    id: "N-12039",
+    receiptNumber: "12345",
     name: "Christian",
     surname: "Kobril",
     taxCode: "KBRCRS99L30E801W",
@@ -21,8 +21,8 @@ const medicalData: MedicalData[] = [
     issuedAt: "2024-09-15",
   },
   {
-    id: "23322",
-    receiptNumber: "R-12023",
+    id: "N-10932",
+    receiptNumber: "12023",
     name: "Christian",
     surname: "Kobril",
     taxCode: "KBRCRS99L30E801W",
@@ -30,8 +30,8 @@ const medicalData: MedicalData[] = [
     issuedAt: "2024-02-15",
   },
   {
-    id: "43443",
-    receiptNumber: "R-12009",
+    id: "N-19032",
+    receiptNumber: "12009",
     name: "Christian",
     surname: "Kobril",
     taxCode: "KBRCRS99L30E801W",
@@ -39,8 +39,8 @@ const medicalData: MedicalData[] = [
     issuedAt: "2023-03-05",
   },
   {
-    id: "12232",
-    receiptNumber: "R-12002",
+    id: "N-12232",
+    receiptNumber: "12002",
     name: "Christian",
     surname: "Kobril",
     taxCode: "KBRCRS99L30E801W",
@@ -48,8 +48,8 @@ const medicalData: MedicalData[] = [
     issuedAt: "2022-03-05",
   },
   {
-    id: "22932",
-    receiptNumber: "R-10022",
+    id: "N-22932",
+    receiptNumber: "10022",
     name: "Christian",
     surname: "Kobril",
     taxCode: "KBRCRS99L30E801W",
