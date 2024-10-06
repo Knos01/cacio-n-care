@@ -111,7 +111,7 @@ async function getScrtBalance(userCli: SecretNetworkClient): Promise<string> {
 
 async function fillUpFromFaucet(
   client: SecretNetworkClient,
-  targetBalance: Number
+  targetBalance: number
 ) {
   let balance = await getScrtBalance(client);
   while (Number(balance) < targetBalance) {
