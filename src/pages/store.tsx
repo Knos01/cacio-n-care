@@ -11,7 +11,7 @@ import styled from "styled-components";
 
 const Container = styled.div`
   display: flex;
-  height: full;
+  height: 120vh;
   width: 100vw;
 `;
 
