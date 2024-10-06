@@ -1,8 +1,68 @@
+import Loader from "./Loader";
 import PrescriptionStored from "./PrescriptionStored";
 import { Title } from "./atoms";
 import { FormEvent, useEffect, useMemo, useState } from "react";
 import { SecretNetworkClient, Wallet } from "secretjs";
 import styled from "styled-components";
+
+const FormWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background-color: #f9fafb;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 50%;
+  margin: 0 5 0 5;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+`;
+
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+`;
+
+const InputGroup = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  input {
+    padding: 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+
+    &:focus {
+      outline: none;
+      border-color: #0366d6;
+      box-shadow: 0 0 5px rgba(3, 102, 214, 0.5);
+    }
+  }
+`;
+
+const Button = styled.button`
+  padding: 12px 16px;
+  background-color: #0366d6;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #0353b3;
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(3, 102, 214, 0.5);
+  }
+`;
 
 const wallet = new Wallet(
   "desk pigeon hammer sleep only mistake stool december offer patrol once vacant"
@@ -32,6 +92,8 @@ export default function StoreManager() {
     type_of_medication: string;
   } | null>(null);
   const [showPrescriptions, setShowPrescriptions] = useState<boolean>(false);
+  const [isStoring, setIsStoring] = useState<boolean>(false);
+  const [txHash, setTxHash] = useState<string | null>(null);
 
   const update_index = () => {
     setIndex((prev) => {
@@ -41,6 +103,8 @@ export default function StoreManager() {
     });
   };
   const store_prescription = async () => {
+    setIsStoring(true);
+    setTxHash(null);
     let i = 0;
     let handleMsg = {
       store_prescription: {
@@ -52,6 +116,8 @@ export default function StoreManager() {
       },
     };
     console.log("Storing prescription…");
+
+    console.log(wallet.address);
 
     let tx = await secretjs.tx.compute.executeContract(
       {
@@ -65,6 +131,10 @@ export default function StoreManager() {
       }
     );
     console.log(tx);
+
+    alert("Prescription stored successfully with id: 0!");
+    setIsStoring(false);
+    setTxHash(tx.transactionHash);
   };
 
   let query_prescription = async () => {
@@ -106,65 +176,6 @@ export default function StoreManager() {
     query_prescription();
   };
 
-  const FormWrapper = styled.div`
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    background-color: #f9fafb;
-    padding: 20px;
-    border-radius: 8px;
-    max-width: 50%;
-    margin: 0 5 0 5;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  `;
-
-  const Form = styled.form`
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  `;
-
-  const InputGroup = styled.div`
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-
-    input {
-      padding: 12px;
-      border: 1px solid #d1d5db;
-      border-radius: 6px;
-      font-size: 16px;
-      transition: border-color 0.3s ease;
-
-      &:focus {
-        outline: none;
-        border-color: #0366d6;
-        box-shadow: 0 0 5px rgba(3, 102, 214, 0.5);
-      }
-    }
-  `;
-
-  const Button = styled.button`
-    padding: 12px 16px;
-    background-color: #0366d6;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-
-    &:hover {
-      background-color: #0353b3;
-    }
-
-    &:focus {
-      outline: none;
-      box-shadow: 0 0 5px rgba(3, 102, 214, 0.5);
-    }
-  `;
-
   return (
     <div>
       <FormWrapper>
@@ -174,7 +185,10 @@ export default function StoreManager() {
             <input
               type="text"
               value={farmaco}
-              onChange={(e) => setFarmaco(e.target.value)}
+              onChange={(e) => {
+                e.preventDefault();
+                setFarmaco(e.target.value);
+              }}
               placeholder="Medicine"
               required
             />
@@ -202,6 +216,7 @@ export default function StoreManager() {
           </InputGroup>
           <Button onClick={store_prescription}>Store Prescription</Button>
         </Form>
+        {isStoring && <Loader size={50} color={"#B2E3C6"} />}
 
         <Form action="submit" onSubmit={onQuerySubmit}>
           <InputGroup>
