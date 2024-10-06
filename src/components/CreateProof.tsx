@@ -8,7 +8,6 @@ import {
   Table,
 } from "@/pages/receipts";
 import { usePrivy, useWallets } from "@privy-io/react-auth";
-import { useSmartWallets } from "@privy-io/react-auth/smart-wallets";
 import TransgateConnect from "@zkpass/transgate-js-sdk";
 import { ethers } from "ethers";
 import { useState } from "react";
@@ -26,7 +25,7 @@ const CreateProof = () => {
 
   const { user } = usePrivy();
   const { wallets } = useWallets();
-  const { client } = useSmartWallets();
+  // const { client } = useSmartWallets();
 
   console.log({ user });
 
@@ -78,17 +77,17 @@ const CreateProof = () => {
         args: [chainParams],
       });
 
-      const txHash = await client?.sendTransaction({
-        account: client?.account,
-        to: contractAddress,
-        data: encodeFunctionData({
-          abi: AttestationABI,
-          functionName: "attest",
-          args: [chainParams],
-        }),
-      });
+      // const txHash = await client?.sendTransaction({
+      //   account: client?.account,
+      //   to: contractAddress,
+      //   data: encodeFunctionData({
+      //     abi: AttestationABI,
+      //     functionName: "attest",
+      //     args: [chainParams],
+      //   }),
+      // });
 
-      alert("Transaction sent successfully!");
+      alert("Proof created successfully!");
     } catch (err) {
       alert(JSON.stringify(err));
       console.log("error", err);
