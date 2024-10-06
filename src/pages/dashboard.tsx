@@ -1,6 +1,7 @@
 import { Dashboard } from "@/components/Dashboard";
 import LoginButton from "@/components/LoginButton";
-import { Card } from "@/components/atoms";
+import LogoutButton from "@/components/LogoutButton";
+import { Card, Row } from "@/components/atoms";
 import { usePrivy } from "@privy-io/react-auth";
 import Link from "next/link";
 import styled from "styled-components";
@@ -50,15 +51,15 @@ const DashboardView = () => {
           <img src="/images/logo_mint.png" alt="logo" />
           <h2>Cacio 'N Care</h2>
         </Link>
-        <p>Link 1</p>
-        <p>Link 2</p>
-        <p>Link 3</p>
       </Sidebar>
 
       <MainContent>
         <Navbar>
           {ready && authenticated ? (
-            <Card>{user?.wallet?.address}</Card>
+            <Row>
+              <span>Welcome {user?.email?.address.split("@")[0]}!</span>
+              <LogoutButton />
+            </Row>
           ) : (
             <LoginButton />
           )}
