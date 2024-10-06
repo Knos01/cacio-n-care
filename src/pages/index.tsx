@@ -1,8 +1,10 @@
 import { Dashboard } from "@/components/Dashboard";
+import StoreManager from "@/components/StoreManager";
 import { Footer } from "@/components/Footer";
 import { Nav } from "@/components/Nav";
 import { CreateButton, CustomContainer, Layout } from "@/components/atoms";
 import { useIsMounted } from "@/hooks/useIsMounted";
+import { Store } from "lucide-react";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -44,7 +46,7 @@ export default function Home() {
           </Link>
 
           <p></p>
-          <br />
+          <StoreManager />
         </CustomContainer>
         <Footer />
       </Layout>
