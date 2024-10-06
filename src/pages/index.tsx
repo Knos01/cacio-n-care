@@ -336,7 +336,7 @@ export default function LandingPage() {
 
         <section id="how-it-works" style={{ padding: "4rem 0" }}>
           <Container>
-            <SectionTitle>How Cacio 'N Pepe Works</SectionTitle>
+            <SectionTitle>How Cacio 'N Care Works</SectionTitle>
             <StepList>
               {[
                 "Sign up with your email and create your secure health wallet.",
