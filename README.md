@@ -1,6 +1,6 @@
 # Cacio 'N Care
 
-[![Cacio 'N Care Logo](https://your-logo-url-here.com/logo.png)](https://cacio-n-care.vercel.app/)
+[![Cacio 'N Care Logo](https://cacio-n-care.vercel.app/images/logo_mint.png)](https://cacio-n-care.vercel.app/)
 
 **Cacio 'N Care** is a secure, private, and user-centric healthcare management platform leveraging **zkPass** proofs and **Secret Network** storage to protect users' health data. As easy as cooking Cacio e Pepe, it empowers users to manage their health information without fearing data leaks.
 
