@@ -48,7 +48,12 @@ const DashboardView = () => {
     <Container>
       <Sidebar>
         <Link href="/">
-          <img src="/images/logo_mint.png" alt="logo" />
+          <img
+            src="/images/logo_mint.png"
+            alt="logo"
+            width={120}
+            style={{ margin: "auto" }}
+          />
           <h2>Cacio 'N Care</h2>
         </Link>
       </Sidebar>

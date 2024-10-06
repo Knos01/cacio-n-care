@@ -43,29 +43,29 @@ const CardContent = styled.div`
   padding: 1.5rem;
 `;
 
-const Table = styled.table`
+export const Table = styled.table`
   width: 100%;
   border-collapse: collapse;
 `;
 
-const TableHeader = styled.thead`
+export const TableHeader = styled.thead`
   background-color: #dbeafe;
 `;
 
-const TableHeaderCell = styled.th`
+export const TableHeaderCell = styled.th`
   padding: 0.75rem;
   text-align: left;
   color: #1e40af;
   font-weight: 600;
 `;
 
-const TableRow = styled.tr`
+export const TableRow = styled.tr`
   &:hover {
     background-color: #eff6ff;
   }
 `;
 
-const TableCell = styled.td`
+export const TableCell = styled.td`
   padding: 0.75rem;
   border-bottom: 1px solid #e5e7eb;
 `;

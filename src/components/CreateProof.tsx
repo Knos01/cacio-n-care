@@ -1,22 +1,17 @@
 import AttestationABI from "../abi/AttestationABI.json";
-import { Nav } from "@/components/Nav";
+import { Button, Description, Title } from "@/components/atoms";
 import {
-  Button,
-  Container,
-  Description,
-  Form,
-  FormGroup,
-  Input,
-  Label,
-  Layout,
-  TextArea,
-  Title,
-} from "@/components/atoms";
+  TableCell,
+  TableHeader,
+  TableHeaderCell,
+  TableRow,
+  Table,
+} from "@/pages/receipts";
 import { usePrivy, useWallets } from "@privy-io/react-auth";
+import { useSmartWallets } from "@privy-io/react-auth/smart-wallets";
 import TransgateConnect from "@zkpass/transgate-js-sdk";
 import { ethers } from "ethers";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { encodeFunctionData } from "viem";
 
 const ZKPASS_APP_ID = process.env.NEXT_PUBLIC_ZKPASS_APP_ID!;
@@ -29,26 +24,13 @@ const CreateProof = () => {
     schemaId: ZKPASS_SCHEMA_ID,
   });
 
-  const [isLoading, setIsLoading] = useState(false);
-
   const { user } = usePrivy();
   const { wallets } = useWallets();
-
-  const handleChange = (e: any) => {
-    const { name, value } = e.target;
-    setFormData((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
+  const { client } = useSmartWallets();
 
   console.log({ user });
 
-  const handleSubmit = async (e: any) => {
-    e.preventDefault();
-
-    setIsLoading(true);
-
+  const createProof = async () => {
     try {
       console.log("formData", formData);
       const connector = new TransgateConnect(formData.appId);
@@ -60,27 +42,22 @@ const CreateProof = () => {
       if (window.ethereum == null) {
         return alert("MetaMask not installed");
       }
-      //@ts-ignore
-      // const provider = new ethers.BrowserProvider(window.ethereum);
-      // const signer = await provider.getSigner();
-      // //get your ethereum address
-      // const account = await signer.getAddress();
 
-      console.log(user?.wallet?.address);
       const res: any = await connector.launch(
         formData.schemaId,
         user?.wallet?.address
       );
-      console.log(res);
 
-      //Sepolia contract address
-      //You can add from https://chainlist.org/?search=11155111&testnets=true
       const contractAddress = "0x8c18c0436A8d6ea44C87Bf5853F8D11B55CF0302";
 
       const taskId = ethers.hexlify(ethers.toUtf8Bytes(res.taskId)); // to hex
       let schemaId = ethers.hexlify(ethers.toUtf8Bytes(formData.schemaId)); // to hex
 
+      console.log({ wallets });
+
       const wallet = wallets[0]; // Replace this with your desired wallet
+      await wallet.switchChain(11155111);
+
       const provider = await wallet.getEthereumProvider();
 
       const chainParams = {
@@ -95,86 +72,72 @@ const CreateProof = () => {
       };
       console.log("chainParams", chainParams);
 
-      // const contract = new ethers.Contract(
-      //   contractAddress,
-      //   AttestationABI,
-      //   wallet.address
-      // );
-
       const data = encodeFunctionData({
         abi: AttestationABI,
         functionName: "attest",
         args: [chainParams],
       });
-      // const data = contract.interface.encodeFunctionData("attest", [
-      //   chainParams,
-      // ]);
 
-      // let transaction = {
-      //   to: contractAddress,
-      //   from: account,
-      //   value: 0,
-      //   data,
-      // };
-
-      const transactionRequest = {
+      const txHash = await client?.sendTransaction({
+        account: client?.account,
         to: contractAddress,
-        value: 0,
-        data,
-        from: wallet.address,
-      };
-
-      const transactionHash = await provider.request({
-        method: "eth_sendTransaction",
-        params: [transactionRequest],
+        data: encodeFunctionData({
+          abi: AttestationABI,
+          functionName: "attest",
+          args: [chainParams],
+        }),
       });
 
-      console.log(transactionHash);
-
-      console.log("transactionHash", transaction);
-      // let tx = await signer?.sendTransaction(transaction);
-      // console.log("transaction hash====>", tx.hash);
       alert("Transaction sent successfully!");
     } catch (err) {
       alert(JSON.stringify(err));
       console.log("error", err);
     }
-
-    setIsLoading(false);
   };
+
+  const medicines = [
+    {
+      id: 1,
+      name: "Paracetamol",
+      price: 5.0,
+    },
+    {
+      id: 2,
+      name: "Ibuprofen",
+      price: 10.0,
+    },
+    {
+      id: 3,
+      name: "Aspirin",
+      price: 15.0,
+    },
+  ];
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-      <Title>Submit your receipt</Title>
-      <Description>Submit your receipt to claim your proof.</Description>
-
-      <Form onSubmit={handleSubmit}>
-        <FormGroup>
-          <Label htmlFor="appId">AppId:</Label>
-          <Input
-            type="text"
-            id="appId"
-            name="appId"
-            placeholder="Enter appId"
-            value={formData.appId}
-            onChange={handleChange}
-          />
-        </FormGroup>
-        <FormGroup>
-          <Label htmlFor="schemaId">SchemaId:</Label>
-          <TextArea
-            id="schemaId"
-            name="schemaId"
-            placeholder="Enter schemaId"
-            value={formData.schemaId}
-            onChange={handleChange}
-            rows={5}
-          />
-        </FormGroup>
-
-        <Button type="submit" disabled={isLoading}>
-          Submit
-        </Button>
-      </Form>
+      <Title>Obtain your receipt proof</Title>
+      <Description>Choose one of the medicines of your needs.</Description>
+      <Table>
+        <TableHeader style={{ background: "#B3DDF2" }}>
+          <tr>
+            <TableHeaderCell style={{ color: "#4A4A4A" }}>
+              Medicine
+            </TableHeaderCell>
+            <TableHeaderCell>Price</TableHeaderCell>
+            <TableHeaderCell>Action</TableHeaderCell>
+          </tr>
+        </TableHeader>
+        <tbody>
+          {medicines.map((m) => (
+            <TableRow key={m.id}>
+              <TableCell>{m.name}</TableCell>
+              <TableCell>€{m.price.toFixed(2)}</TableCell>
+              <TableCell>
+                <Button onClick={() => createProof()}>Create Proof</Button>
+              </TableCell>
+            </TableRow>
+          ))}
+        </tbody>
+      </Table>
     </div>
   );
 };
