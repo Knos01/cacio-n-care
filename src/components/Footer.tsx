@@ -23,18 +23,19 @@ export const Links = styled.div`
 `;
 
 const Link = styled.a`
-  color: rgba(0, 0, 0, 0.5);
+  color: #ffffff;
   font-weight: 600;
   transition: color 0.15s ease-in-out;
 
   @media (hover: hover) {
     &:hover {
-      color: rgba(0, 0, 0, 1);
+      color: #ffffff;
+      opacity: 0.75;
     }
   }
 `;
 
-export function Footer() {
+export function CustomFooter() {
   return (
     <Wrapper>
       <Links>
@@ -47,8 +48,13 @@ export function Footer() {
       </Links>
 
       <Links>
-        <Link href="https://github.com/Knos01/cacio-n-care" target="_blank">
+        <Link
+          href="https://github.com/Knos01/cacio-n-care"
+          target="_blank"
+          style={{ display: "flex", gap: "0.5rem" }}
+        >
           <GithubIcon />
+          Github Repository
         </Link>
       </Links>
     </Wrapper>

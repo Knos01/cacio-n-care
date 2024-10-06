@@ -1,3 +1,4 @@
+import { CustomFooter } from "@/components/Footer";
 import {
   Shield,
   MessageSquare,
@@ -88,7 +89,7 @@ const HeroTitle = styled.h1`
 `;
 
 const HeroDescription = styled.p`
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   display: flex;
   justify-content: center;
   margin-left: auto;
@@ -172,7 +173,7 @@ const StepItem = styled.div`
 `;
 
 const StepNumber = styled.div`
-  background-color: #6b4e71;
+  background-color: #457b9d;
   color: white;
   width: 2rem;
   height: 2rem;
@@ -199,7 +200,7 @@ const TestimonialCard = styled.div`
 `;
 
 const Footer = styled.footer`
-  background-color: #2d2d2d;
+  background-color: #457b9d;
   color: white;
   padding: 3rem 0;
 `;
@@ -229,10 +230,10 @@ const FooterLink = styled(Link)`
 const FooterBottom = styled.div`
   margin-top: 2rem;
   padding-top: 2rem;
-  border-top: 1px solid #4b5563;
+  border-top: 1px solid #eaeaea;
   text-align: center;
   font-size: 0.875rem;
-  color: #9ca3af;
+  color: #ffffff;
 `;
 
 export default function LandingPage() {
@@ -240,7 +241,7 @@ export default function LandingPage() {
     <div
       style={{
         minHeight: "100vh",
-        backgroundColor: "#f5f0eb",
+        backgroundColor: "#B3DDF2",
         color: "#2d2d2d",
         fontFamily: "sans-serif",
       }}
@@ -277,8 +278,8 @@ export default function LandingPage() {
               </HeroTitle>
               <HeroDescription>
                 Take control of your health information with the power of ZKPass
-                proofs and Secret Network storage. As easy as cooking Cacio 'N
-                Pepe. 🧀
+                proofs and Secret Network storage. <br />
+                As easy as cooking Cacio 'N Pepe. 🧀
               </HeroDescription>
             </HeroContent>
           </HeroSection>
@@ -338,10 +339,10 @@ export default function LandingPage() {
             <SectionTitle>How Cacio 'N Pepe Works</SectionTitle>
             <StepList>
               {[
-                "Sign up with our secure, privacy-first account creation process.",
-                "Input or import your health data using our encrypted data transfer system.",
-                "Access your health information anytime, anywhere, with multi-factor authentication.",
-                "Share specific health data with healthcare providers using granular permission controls.",
+                "Sign up with your email and create your secure health wallet.",
+                "Create proof of your medical receipts using ZKPass technology.",
+                "Store proofs on Secret Network for private, tamper-proof storage.",
+                "Share specific health data with pharmacies using granular permission controls.",
               ].map((step, index) => (
                 <StepItem key={index}>
                   <StepNumber>{index + 1}</StepNumber>
@@ -351,137 +352,17 @@ export default function LandingPage() {
             </StepList>
           </Container>
         </section>
-
-        <section
-          id="testimonials"
-          style={{ backgroundColor: "white", padding: "4rem 0" }}
-        >
-          <Container>
-            <SectionTitle>What Our Users Say</SectionTitle>
-            <TestimonialGrid>
-              {[
-                {
-                  name: "Alex Johnson",
-                  role: "Patient",
-                  quote:
-                    "PrivacyHealth has given me peace of mind knowing my sensitive health data is secure.",
-                },
-                {
-                  name: "Dr. Sarah Lee",
-                  role: "Healthcare Provider",
-                  quote:
-                    "The secure sharing feature has streamlined my patient care process while maintaining privacy.",
-                },
-              ].map((testimonial, index) => (
-                <TestimonialCard key={index}>
-                  <p style={{ fontSize: "1.125rem", marginBottom: "1rem" }}>
-                    "{testimonial.quote}"
-                  </p>
-                  <div style={{ fontWeight: "600" }}>{testimonial.name}</div>
-                  <div style={{ fontSize: "0.875rem", color: "#4b5563" }}>
-                    {testimonial.role}
-                  </div>
-                </TestimonialCard>
-              ))}
-            </TestimonialGrid>
-          </Container>
-        </section>
-
-        <section id="contact" style={{ padding: "4rem 0" }}>
-          <Container>
-            <SectionTitle>Ready to Secure Your Health Data?</SectionTitle>
-            <div
-              style={{
-                maxWidth: "32rem",
-                margin: "0 auto",
-                textAlign: "center",
-              }}
-            >
-              <p style={{ fontSize: "1.125rem", marginBottom: "2rem" }}>
-                Join thousands of users who trust PrivacyHealth with their
-                sensitive information. Start your journey to private, secure
-                health management today.
-              </p>
-              <HeroButton href="#">Get Started Now</HeroButton>
-            </div>
-          </Container>
-        </section>
       </main>
       <Footer>
         <Container>
           <FooterGrid>
             <div>
-              <FooterTitle>PrivacyHealth</FooterTitle>
-              <p style={{ fontSize: "0.875rem", color: "#9ca3af" }}>
-                Secure, private, and user-centric healthcare management.
-              </p>
-            </div>
-            <div>
-              <FooterTitle>Quick Links</FooterTitle>
-              <ul
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "0.5rem",
-                }}
-              >
-                <li>
-                  <FooterLink href="#">About Us</FooterLink>
-                </li>
-                <li>
-                  <FooterLink href="#">Features</FooterLink>
-                </li>
-                <li>
-                  <FooterLink href="#">Pricing</FooterLink>
-                </li>
-                <li>
-                  <FooterLink href="#">Contact</FooterLink>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <FooterTitle>Legal</FooterTitle>
-              <ul
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "0.5rem",
-                }}
-              >
-                <li>
-                  <FooterLink href="#">Privacy Policy</FooterLink>
-                </li>
-                <li>
-                  <FooterLink href="#">Terms of Service</FooterLink>
-                </li>
-                <li>
-                  <FooterLink href="#">Cookie Policy</FooterLink>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <FooterTitle>Connect</FooterTitle>
-              <ul
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "0.5rem",
-                }}
-              >
-                <li>
-                  <FooterLink href="#">Twitter</FooterLink>
-                </li>
-                <li>
-                  <FooterLink href="#">LinkedIn</FooterLink>
-                </li>
-                <li>
-                  <FooterLink href="#">Facebook</FooterLink>
-                </li>
-              </ul>
+              <FooterTitle>Cacio 'N Care buidlers</FooterTitle>
             </div>
           </FooterGrid>
+          <CustomFooter />
           <FooterBottom>
-            © {new Date().getFullYear()} PrivacyHealth. All rights reserved.
+            Project created for ETHRome 2024 Hackathon.
           </FooterBottom>
         </Container>
       </Footer>
